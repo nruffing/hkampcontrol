@@ -115,6 +115,8 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AmpProfiles\HkGrandmeisterDeluxe40Profile.cs" />
+    <Compile Include="AmpProfiles\IAmpProfile.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
