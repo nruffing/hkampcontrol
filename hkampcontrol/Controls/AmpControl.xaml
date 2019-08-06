@@ -11,9 +11,13 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <StackPanel>
         <ComboBox ItemsSource="{Binding Profiles}"
                   DisplayMemberPath="DisplayName"
-                  SelectedItem="{Binding SelectedProfile}" />
-    </Grid>
+                  SelectedItem="{Binding Path=SelectedProfile, Mode=TwoWay}" />
+
+        <ComboBox ItemsSource="{Binding Devices}"
+                  DisplayMemberPath="Name"
+                  SelectedItem="{Binding Path=SelectedDevice, Mode=TwoWay}" />
+    </StackPanel>
 </UserControl>
