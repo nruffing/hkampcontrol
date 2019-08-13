@@ -12,6 +12,7 @@ namespace hkampcontrol.ViewModels
         private IMidiModule _module;
         private IAmpProfile _selectedProfile;
         private IMidiOutputDevice _selectedDevice;
+        private byte _selectedChannel;
 
         private bool _isBoostOn;
 
@@ -25,12 +26,21 @@ namespace hkampcontrol.ViewModels
 
             this.Devices = new ObservableCollection<IMidiOutputDevice>();
 
+            this.Channels = new ObservableCollection<byte>();
+            for (byte i = 1; i <= 16; i++)
+            {
+                this.Channels.Add(i);
+            }
+            this.SelectedChannel = this.Channels.First();
+
             this.IsBoostOn = false;
         }
 
         public ObservableCollection<IAmpProfile> Profiles { get; }
 
         public ObservableCollection<IMidiOutputDevice> Devices { get; }
+
+        public ObservableCollection<byte> Channels { get; }
 
         public IAmpProfile SelectedProfile
         {
@@ -58,6 +68,19 @@ namespace hkampcontrol.ViewModels
             }
         }
 
+        public byte SelectedChannel
+        {
+            get => this._selectedChannel;
+            set
+            {
+                if (this._selectedChannel != value)
+                {
+                    this._selectedChannel = value;
+                    OnPropertyChanged(nameof(SelectedChannel));
+                }
+            }
+        }
+
         public bool IsBoostOn
         {
             get => this._isBoostOn;
@@ -67,7 +90,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._isBoostOn = value;
                     OnPropertyChanged(nameof(IsBoostOn));
-                    this._module.SetBoostAsync(this.IsBoostOn, this.SelectedProfile, this.SelectedDevice);
+                    this._module.SetBoostAsync(this.IsBoostOn, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
                 }
             }
         }
@@ -80,7 +103,6 @@ namespace hkampcontrol.ViewModels
             }
 
             this.SelectedDevice = this.Devices.First();
-            OnPropertyChanged(nameof(Devices));
         }
     }
 }

@@ -18,10 +18,14 @@
                   SelectedItem="{Binding Path=SelectedProfile, Mode=TwoWay}" />
 
         <!-- MIDI Output Device Selection -->
-        <ComboBox ItemsSource="{Binding Path=Devices}"
+        <ComboBox ItemsSource="{Binding Devices}"
                   DisplayMemberPath="Name"
                   SelectedItem="{Binding Path=SelectedDevice, Mode=TwoWay}" />
         
+        <!-- MIDI Channel Selection -->
+        <ComboBox ItemsSource="{Binding Channels}"
+                  SelectedItem="{Binding Path=SelectedChannel, Mode=TwoWay}" />
+
         <!-- Boost Toggle -->
         <ToggleSwitch Header="Boost"
                       IsOn="{Binding Path=IsBoostOn, Mode=TwoWay}" />

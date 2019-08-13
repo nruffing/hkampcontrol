@@ -12,9 +12,11 @@ namespace hkampcontrol.Modules
         /// <param name="isBoostOn">Whether to turn the boost on or off</param>
         /// <param name="profile">The amp profile to use to compile the midi message</param>
         /// <param name="device">The MIDI device to send the message to</param>
-        public async Task SetBoostAsync(bool isBoostOn, IAmpProfile profile, IMidiOutputDevice device)
+        /// <param name="channel">The MIDI channel to send the message on</param>
+        public async Task SetBoostAsync(bool isBoostOn, IAmpProfile profile, IMidiOutputDevice device, byte channel)
             => await MidiDeviceLocator.SelectForOutput(device.DeviceId)
                 .ComposeControlChange()
+                .WithChannel(channel)
                 .WithControlNumber(profile.Boost)
                 .WithValue(this.GetToggleValue(isBoostOn, profile))
                 .SendAsync();
