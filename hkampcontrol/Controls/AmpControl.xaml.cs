@@ -1,6 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+﻿using FluentMidi;
+using hkampcontrol.ViewModels;
+using Windows.UI.Xaml.Controls;
 
 namespace hkampcontrol.Controls
 {
@@ -9,6 +9,13 @@ namespace hkampcontrol.Controls
         public AmpControl()
         {
             this.InitializeComponent();
+            this.Loaded += AmpControl_Loaded;
+        }
+
+        private async void AmpControl_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var devices = await MidiDeviceLocator.GetAllOutputDevicesAsync();
+            ((AmpControlViewModel)DataContext).SetDevices(devices);
         }
     }
 }

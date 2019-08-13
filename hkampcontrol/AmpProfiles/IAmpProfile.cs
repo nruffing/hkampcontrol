@@ -12,9 +12,17 @@
         string DisplayName { get; }
 
         /// <summary>
-        /// Gets the control number for toggling the boost. It is assumed that sending a value
-        /// of 0-63 will turn the boost off and 64-127 will turn it on. For any value over 127
-        /// the higher nibble will be ignored.
+        /// Gets the value to send to turn on a toggle control (e.g. Boost On/Off)
+        /// </summary>
+        byte ToggleOnValue { get; }
+
+        /// <summary>
+        /// Gets the value to send to turn off a toggle control (e.g. Boost On/Off)
+        /// </summary>
+        byte ToggleOffValue { get; }
+
+        /// <summary>
+        /// Gets the control number for toggling the boost.
         /// </summary>
         byte Boost { get; }
     }

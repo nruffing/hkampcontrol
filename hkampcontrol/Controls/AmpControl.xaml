@@ -12,12 +12,19 @@
     d:DesignWidth="400">
 
     <StackPanel>
+        <!-- Amp Profile Selection -->
         <ComboBox ItemsSource="{Binding Profiles}"
                   DisplayMemberPath="DisplayName"
                   SelectedItem="{Binding Path=SelectedProfile, Mode=TwoWay}" />
 
-        <ComboBox ItemsSource="{Binding Devices}"
+        <!-- MIDI Output Device Selection -->
+        <ComboBox ItemsSource="{Binding Path=Devices}"
                   DisplayMemberPath="Name"
                   SelectedItem="{Binding Path=SelectedDevice, Mode=TwoWay}" />
+        
+        <!-- Boost Toggle -->
+        <ToggleSwitch Header="Boost"
+                      IsOn="{Binding Path=IsBoostOn, Mode=TwoWay}" />
+        
     </StackPanel>
 </UserControl>

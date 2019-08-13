@@ -13,10 +13,21 @@
         public string DisplayName => "Hughes & Kettner GrandMeister Deluxe 40";
 
         /// <summary>
-        /// Gets the control number for toggling the boost. It is assumed that sending a value
-        /// of 0-63 will turn the boost off and 64-127 will turn it on. For any value over 127
+        /// Gets the value to send to turn on a toggle control (e.g. Boost On/Off). A value
+        /// of 0-63 will set the control off and 64-127 will turn it on. For any value over 127
         /// the higher nibble will be ignored.
         /// </summary>
-        public byte Boost => 64;        
+        public byte ToggleOnValue => 64;
+
+        /// <summary>
+        /// Gets the value to send to turn off a toggle control (e.g. Boost On/Off). A value
+        /// of 0-63 will set the control off and 64-127 will turn it on. For any value over 127
+        /// the higher nibble will be ignored.
+        /// </summary>
+        public byte ToggleOffValue => 0;
+
+        /// <summary>
+        /// Gets the control number for toggling the boost. 
+        public byte Boost => 64;
     }
 }
