@@ -30,5 +30,8 @@
         <ToggleSwitch Header="Boost"
                       IsOn="{Binding Path=IsBoostOn, Mode=TwoWay}" />
         
+        <!-- Reverb Level -->
+        <Slider Value="{Binding Path=ReverbLevel, Mode=TwoWay}" />
+
     </StackPanel>
 </UserControl>

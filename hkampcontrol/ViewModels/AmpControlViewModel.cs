@@ -16,6 +16,8 @@ namespace hkampcontrol.ViewModels
 
         private bool _isBoostOn;
 
+        private byte _reverbLevel;
+
         public AmpControlViewModel()
             : base()
         {
@@ -91,6 +93,20 @@ namespace hkampcontrol.ViewModels
                     this._isBoostOn = value;
                     OnPropertyChanged(nameof(IsBoostOn));
                     this._module.SetBoostAsync(this.IsBoostOn, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public int ReverbLevel
+        {
+            get => this._reverbLevel;
+            set
+            {
+                if (this._reverbLevel != value)
+                {
+                    this._reverbLevel = (byte)value;
+                    OnPropertyChanged(nameof(ReverbLevel));
+                    this._module.SetReverbAsync(this._reverbLevel, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
                 }
             }
         }

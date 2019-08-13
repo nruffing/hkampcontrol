@@ -28,6 +28,12 @@
 
         /// <summary>
         /// Gets the control number for toggling the boost. 
+        /// </summary>
         public byte Boost => 64;
+
+        /// <summary>
+        /// Gets the control number for the reverb volume
+        /// </summary>
+        public byte Reverb => 29;
     }
 }

@@ -25,5 +25,10 @@
         /// Gets the control number for toggling the boost.
         /// </summary>
         byte Boost { get; }
+
+        /// <summary>
+        /// Gets the control number for the reverb volume
+        /// </summary>
+        byte Reverb { get; }
     }
 }

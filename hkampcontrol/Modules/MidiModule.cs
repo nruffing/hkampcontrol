@@ -21,6 +21,14 @@ namespace hkampcontrol.Modules
                 .WithValue(this.GetToggleValue(isBoostOn, profile))
                 .SendAsync();
 
+        public async Task SetReverbAsync(byte value, IAmpProfile profile, IMidiOutputDevice device, byte channel)
+            => await MidiDeviceLocator.SelectForOutput(device.DeviceId)
+                .ComposeControlChange()
+                .WithChannel(channel)
+                .WithControlNumber(profile.Reverb)
+                .WithValue(value)
+                .SendAsync();
+
         private byte GetToggleValue(bool toggleValue, IAmpProfile profile)
             => toggleValue ? profile.ToggleOnValue : profile.ToggleOffValue;
     }

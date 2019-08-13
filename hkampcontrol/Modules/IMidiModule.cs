@@ -14,5 +14,7 @@ namespace hkampcontrol.Modules
         /// <param name="device">The MIDI device to send the message to</param>
         /// <param name="channel">The MIDI channel to send the message on</param>
         Task SetBoostAsync(bool isBoostOn, IAmpProfile profile, IMidiOutputDevice device, byte channel);
+
+        Task SetReverbAsync(byte value, IAmpProfile profile, IMidiOutputDevice device, byte channel);
     }
 }
