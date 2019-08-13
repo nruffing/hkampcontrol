@@ -1,17 +1,35 @@
 ﻿using Windows.UI.Xaml.Controls;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+using System.Linq;
+using hkampcontrol.Views;
 
 namespace hkampcontrol
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private void NavigationView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            _nav.SelectedItem = _nav.MenuItems.First();
+            _nav.IsPaneOpen = false;
+            _view.Navigate(typeof(AmpControlPage));
+        }
+
+        private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+            TextBlock ItemContent = args.InvokedItem as TextBlock;
+            if (ItemContent != null)
+            {
+                switch (ItemContent.Tag)
+                {
+                    case "AmpControlPage":
+                        _view.Navigate(typeof(AmpControlPage));
+                        break;
+                }
+            }
         }
     }
 }
