@@ -11,27 +11,52 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <StackPanel>
-        <!-- Amp Profile Selection -->
-        <ComboBox ItemsSource="{Binding Profiles}"
-                  DisplayMemberPath="DisplayName"
-                  SelectedItem="{Binding Path=SelectedProfile, Mode=TwoWay}" />
+    <StackPanel Margin="10">
+        <StackPanel Padding="10"
+                    Orientation="Horizontal">
+            <!-- Amp Profile Selection -->
+            <ComboBox Header="Amp"
+                      ItemsSource="{Binding Profiles}"
+                      DisplayMemberPath="DisplayName"
+                      SelectedItem="{Binding Path=SelectedProfile, Mode=TwoWay}" />
 
-        <!-- MIDI Output Device Selection -->
-        <ComboBox ItemsSource="{Binding Devices}"
-                  DisplayMemberPath="Name"
-                  SelectedItem="{Binding Path=SelectedDevice, Mode=TwoWay}" />
-        
-        <!-- MIDI Channel Selection -->
-        <ComboBox ItemsSource="{Binding Channels}"
-                  SelectedItem="{Binding Path=SelectedChannel, Mode=TwoWay}" />
+            <!-- MIDI Output Device Selection -->
+            <ComboBox Margin="15,0,0,0"
+                      Header="MIDI Device" 
+                      ItemsSource="{Binding Devices}"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding Path=SelectedDevice, Mode=TwoWay}" />
 
-        <!-- Boost Toggle -->
-        <ToggleSwitch Header="Boost"
+            <!-- MIDI Channel Selection -->
+            <ComboBox Margin="15,0,0,0" 
+                      Header="MIDI Channel" 
+                      ItemsSource="{Binding Channels}"
+                      SelectedItem="{Binding Path=SelectedChannel, Mode=TwoWay}" />
+        </StackPanel>
+
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <!-- Effects -->
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Effects" />
+                <Border BorderBrush="{ThemeResource SystemListMediumColor}"
+                        BorderThickness="2"
+                        Padding="10">
+                    <!-- Reverb Level -->
+                    <Slider Header="Reverb"
+                        Value="{Binding Path=ReverbLevel, Mode=TwoWay}" />
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Column="1"
+                        Padding="10">
+                <!-- Boost Toggle -->
+                <ToggleSwitch Header="Boost"
                       IsOn="{Binding Path=IsBoostOn, Mode=TwoWay}" />
-        
-        <!-- Reverb Level -->
-        <Slider Value="{Binding Path=ReverbLevel, Mode=TwoWay}" />
-
+            </StackPanel>
+        </Grid>
     </StackPanel>
 </UserControl>
