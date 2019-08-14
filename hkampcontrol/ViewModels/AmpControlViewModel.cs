@@ -15,6 +15,8 @@ namespace hkampcontrol.ViewModels
         private byte _selectedChannel;
 
         private bool _isBoostOn;
+        private bool _isNoiseGateOn;
+        private bool _isFxLoopOn;
 
         private byte _reverbLevel;
 
@@ -34,8 +36,6 @@ namespace hkampcontrol.ViewModels
                 this.Channels.Add(i);
             }
             this.SelectedChannel = this.Channels.First();
-
-            this.IsBoostOn = false;
         }
 
         public ObservableCollection<IAmpProfile> Profiles { get; }
@@ -92,7 +92,35 @@ namespace hkampcontrol.ViewModels
                 {
                     this._isBoostOn = value;
                     OnPropertyChanged(nameof(IsBoostOn));
-                    this._module.SetBoostAsync(this.IsBoostOn, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    this._module.SetToggleAsync(this.IsBoostOn, this.SelectedProfile.Boost, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public bool IsNoiseGateOn
+        {
+            get => this._isNoiseGateOn;
+            set
+            {
+                if (this._isNoiseGateOn != value)
+                {
+                    this._isNoiseGateOn = value;
+                    OnPropertyChanged(nameof(IsNoiseGateOn));
+                    this._module.SetToggleAsync(this.IsNoiseGateOn, this.SelectedProfile.NoiseGate, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public bool IsFxLoopOn
+        {
+            get => this._isFxLoopOn;
+            set
+            {
+                if (this._isFxLoopOn != value)
+                {
+                    this._isFxLoopOn = value;
+                    OnPropertyChanged(nameof(IsFxLoopOn));
+                    this._module.SetToggleAsync(this.IsFxLoopOn, this.SelectedProfile.FxLoop, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
                 }
             }
         }
@@ -106,7 +134,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._reverbLevel = (byte)value;
                     OnPropertyChanged(nameof(ReverbLevel));
-                    this._module.SetReverbAsync(this._reverbLevel, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    this._module.SetValueAsync(this._reverbLevel, this.SelectedProfile.Reverb, this.SelectedDevice, this.SelectedChannel);
                 }
             }
         }

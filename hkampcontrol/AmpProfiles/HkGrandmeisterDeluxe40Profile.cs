@@ -32,6 +32,16 @@
         public byte Boost => 64;
 
         /// <summary>
+        /// Gets the control number for toggling the noise gate
+        /// </summary>
+        public byte NoiseGate => 63;
+
+        /// <summary>
+        /// Gets the control number for toggling the FX loop
+        /// </summary>
+        public byte FxLoop => 55;
+
+        /// <summary>
         /// Gets the control number for the reverb volume
         /// </summary>
         public byte Reverb => 29;

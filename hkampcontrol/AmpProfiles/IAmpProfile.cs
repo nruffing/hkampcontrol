@@ -27,6 +27,16 @@
         byte Boost { get; }
 
         /// <summary>
+        /// Gets the control number for toggling the noise gate
+        /// </summary>
+        byte NoiseGate { get; }
+
+        /// <summary>
+        /// Gets the control number for toggling the FX loop
+        /// </summary>
+        byte FxLoop { get; }
+
+        /// <summary>
         /// Gets the control number for the reverb volume
         /// </summary>
         byte Reverb { get; }
