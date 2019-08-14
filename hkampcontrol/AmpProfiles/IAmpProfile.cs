@@ -37,13 +37,73 @@
         byte FxLoop { get; }
 
         /// <summary>
+        /// Gets the control number for toggling the reverb
+        /// </summary>
+        byte ReverbToggle { get; }
+
+        /// <summary>
         /// Gets the control number for the reverb volume
         /// </summary>
         byte Reverb { get; }
 
         /// <summary>
-        /// Gets the control number for toggling the reverb
+        /// Gets the control number for toggling the delay
         /// </summary>
-        byte ReverbToggle { get; }
+        byte DelayToggle { get; }        
+
+        /// <summary>
+        /// Gets the control number for the delay volume
+        /// </summary>
+        byte Delay { get; }
+
+        /// <summary>
+        /// Gets the control number for the delay feedback
+        /// </summary>
+        byte DelayFeedback { get; }
+
+        /// <summary>
+        /// Gets the control number for the delay time
+        /// </summary>
+        byte DelayTime { get; }
+
+        /// <summary>
+        /// Gets the control number for the modulation type
+        /// </summary>
+        byte ModType { get; }
+
+        /// <summary>
+        /// Gets the value to send to set the modulation type to to turn modulation off
+        /// </summary>
+        byte ModTypeOff { get; }
+
+        /// <summary>
+        /// Gets the value to send to set the modulation type to chorus
+        /// </summary>
+        byte ModTypeChorus { get; }
+
+        /// <summary>
+        /// Gets the value to send to set the modulation type to flanger
+        /// </summary>
+        byte ModTypeFlanger { get; }
+
+        /// <summary>
+        /// Gets the value to send to set the modulation type to phaser
+        /// </summary>
+        byte ModTypePhaser { get; }
+
+        /// <summary>
+        /// Gets the value to send to set the modulation type tremelo
+        /// </summary>
+        byte ModTypeTremelo { get; }
+
+        /// <summary>
+        /// Gets the value to send to set the modulation intensity
+        /// </summary>
+        byte ModIntensity { get; }
+
+        /// <summary>
+        /// Gets the value to send to set the modulation speed
+        /// </summary>
+        byte ModSpeed { get; }        
     }
 }

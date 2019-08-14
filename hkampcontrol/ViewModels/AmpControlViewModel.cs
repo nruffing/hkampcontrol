@@ -21,6 +21,11 @@ namespace hkampcontrol.ViewModels
         private bool _isReverbOn;
         private byte _reverbLevel;
 
+        private bool _isDelayOn;
+        private byte _delayLevel;
+        private byte _delayFeedback;
+        private byte _delayTime;
+
         public AmpControlViewModel()
             : base()
         {
@@ -125,6 +130,20 @@ namespace hkampcontrol.ViewModels
                 }
             }
         }
+        
+        public bool IsReverbOn
+        {
+            get => this._isReverbOn;
+            set
+            {
+                if (this._isReverbOn != value)
+                {
+                    this._isReverbOn = value;
+                    OnPropertyChanged(nameof(IsReverbOn));
+                    this._module.SetToggleAsync(this.IsReverbOn, this.SelectedProfile.ReverbToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
 
         public int ReverbLevel
         {
@@ -141,16 +160,61 @@ namespace hkampcontrol.ViewModels
             }
         }
 
-        public bool IsReverbOn
+        public bool IsDelayOn
         {
-            get => this._isReverbOn;
+            get => this._isDelayOn;
             set
             {
-                if (this._isReverbOn != value)
+                if (this._isDelayOn != value)
                 {
-                    this._isReverbOn = value;
-                    OnPropertyChanged(nameof(IsReverbOn));
-                    this._module.SetToggleAsync(this.IsReverbOn, this.SelectedProfile.ReverbToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    this._isDelayOn = value;
+                    OnPropertyChanged(nameof(IsDelayOn));
+                    this._module.SetToggleAsync(this.IsDelayOn, this.SelectedProfile.DelayToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public int DelayLevel
+        {
+            get => this._delayLevel;
+            set
+            {
+                if (this._delayLevel != value)
+                {
+                    this._delayLevel = (byte)value;
+                    OnPropertyChanged(nameof(DelayLevel));
+                    this._module.SetValueAsync(this._delayLevel, this.SelectedProfile.Delay, this.SelectedDevice, this.SelectedChannel);
+                    this.IsDelayOn = true;
+                }
+            }
+        }
+
+        public int DelayFeedback
+        {
+            get => this._delayFeedback;
+            set
+            {
+                if (this._delayFeedback != value)
+                {
+                    this._delayFeedback = (byte)value;
+                    OnPropertyChanged(nameof(DelayFeedback));
+                    this._module.SetValueAsync(this._delayFeedback, this.SelectedProfile.DelayFeedback, this.SelectedDevice, this.SelectedChannel);
+                    this.IsDelayOn = true;
+                }
+            }
+        }
+
+        public int DelayTime
+        {
+            get => this._delayFeedback;
+            set
+            {
+                if (this._delayTime != value)
+                {
+                    this._delayTime = (byte)value;
+                    OnPropertyChanged(nameof(DelayTime));
+                    this._module.SetValueAsync(this._delayTime, this.SelectedProfile.DelayTime, this.SelectedDevice, this.SelectedChannel);
+                    this.IsDelayOn = true;
                 }
             }
         }

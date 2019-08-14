@@ -11,6 +11,14 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <Style TargetType="Slider">
+            <Setter Property="Minimum" Value="0" />
+            <Setter Property="Maximum" Value="127" />
+            <Setter Property="Margin" Value="10,0,10,0" />
+        </Style>
+    </UserControl.Resources>
+
     <StackPanel Margin="10">
         <StackPanel Padding="10"
                     Orientation="Horizontal">
@@ -49,11 +57,21 @@
                     <StackPanel>
                         <!-- Reverb Toggle -->
                         <ToggleSwitch Header="Reverb"
-                            IsOn="{Binding Path=IsReverbOn, Mode=TwoWay}" />
+                                      IsOn="{Binding Path=IsReverbOn, Mode=TwoWay}" />
                         <!-- Reverb Level -->
-                        <Slider Minimum="0"
-                                Maximum="127"
-                                Value="{Binding Path=ReverbLevel, Mode=TwoWay}" />
+                        <Slider Value="{Binding Path=ReverbLevel, Mode=TwoWay}" />
+                        <!-- Delay Toggle -->
+                        <ToggleSwitch Header="Delay"
+                                      IsOn="{Binding Path=IsDelayOn, Mode=TwoWay}" />
+                        <!-- Delay Level -->
+                        <Slider Header="Level"
+                                Value="{Binding Path=DelayLevel, Mode=TwoWay}" />
+                        <!-- Delay Feedback -->
+                        <Slider Header="Feedback"
+                                Value="{Binding Path=DelayFeedback, Mode=TwoWay}" />
+                        <!-- Delay Time -->
+                        <Slider Header="Time"
+                                Value="{Binding Path=DelayTime, Mode=TwoWay}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -65,7 +83,7 @@
                 <!-- Noise Gate Toggle -->
                 <ToggleSwitch Header="Noise Gate"
                       IsOn="{Binding Path=IsNoiseGateOn, Mode=TwoWay}" />
-                <!-- Boost Toggle -->
+                <!-- FX Loop Toggle -->
                 <ToggleSwitch Header="FX Loop"
                       IsOn="{Binding Path=IsFxLoopOn, Mode=TwoWay}" />
             </StackPanel>
