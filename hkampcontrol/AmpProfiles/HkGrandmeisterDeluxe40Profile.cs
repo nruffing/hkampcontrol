@@ -45,5 +45,10 @@
         /// Gets the control number for the reverb volume
         /// </summary>
         public byte Reverb => 29;
+
+        /// <summary>
+        /// Gets the control number for toggling the reverb
+        /// </summary>
+        public byte ReverbToggle => 54;
     }
 }

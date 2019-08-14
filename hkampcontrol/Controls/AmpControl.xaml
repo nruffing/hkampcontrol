@@ -46,9 +46,15 @@
                 <Border BorderBrush="{ThemeResource SystemListMediumColor}"
                         BorderThickness="2"
                         Padding="10">
-                    <!-- Reverb Level -->
-                    <Slider Header="Reverb"
-                        Value="{Binding Path=ReverbLevel, Mode=TwoWay}" />
+                    <StackPanel>
+                        <!-- Reverb Toggle -->
+                        <ToggleSwitch Header="Reverb"
+                            IsOn="{Binding Path=IsReverbOn, Mode=TwoWay}" />
+                        <!-- Reverb Level -->
+                        <Slider Minimum="0"
+                                Maximum="127"
+                                Value="{Binding Path=ReverbLevel, Mode=TwoWay}" />
+                    </StackPanel>
                 </Border>
             </StackPanel>
             <StackPanel Grid.Column="1"

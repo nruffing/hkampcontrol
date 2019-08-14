@@ -18,6 +18,7 @@ namespace hkampcontrol.ViewModels
         private bool _isNoiseGateOn;
         private bool _isFxLoopOn;
 
+        private bool _isReverbOn;
         private byte _reverbLevel;
 
         public AmpControlViewModel()
@@ -131,10 +132,25 @@ namespace hkampcontrol.ViewModels
             set
             {
                 if (this._reverbLevel != value)
-                {
+                {                    
                     this._reverbLevel = (byte)value;
                     OnPropertyChanged(nameof(ReverbLevel));
                     this._module.SetValueAsync(this._reverbLevel, this.SelectedProfile.Reverb, this.SelectedDevice, this.SelectedChannel);
+                    this.IsReverbOn = true;
+                }
+            }
+        }
+
+        public bool IsReverbOn
+        {
+            get => this._isReverbOn;
+            set
+            {
+                if (this._isReverbOn != value)
+                {
+                    this._isReverbOn = value;
+                    OnPropertyChanged(nameof(IsReverbOn));
+                    this._module.SetToggleAsync(this.IsReverbOn, this.SelectedProfile.ReverbToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
                 }
             }
         }

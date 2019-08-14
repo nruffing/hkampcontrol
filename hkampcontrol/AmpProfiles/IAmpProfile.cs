@@ -40,5 +40,10 @@
         /// Gets the control number for the reverb volume
         /// </summary>
         byte Reverb { get; }
+
+        /// <summary>
+        /// Gets the control number for toggling the reverb
+        /// </summary>
+        byte ReverbToggle { get; }
     }
 }
