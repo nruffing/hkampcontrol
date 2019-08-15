@@ -130,5 +130,15 @@
         /// Gets the control number for resonance
         /// </summary>
         byte Resonance { get; }
+
+        /// <summary>
+        /// Gets the control number for volume
+        /// </summary>
+        byte Volume { get; }
+
+        /// <summary>
+        /// Gets the control number for gain
+        /// </summary>
+        byte Gain { get; }
     }
 }

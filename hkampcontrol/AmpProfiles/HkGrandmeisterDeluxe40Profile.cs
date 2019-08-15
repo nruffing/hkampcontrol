@@ -135,5 +135,15 @@
         /// Gets the control number for resonance
         /// </summary>
         public byte Resonance => 24;
+
+        /// <summary>
+        /// Gets the control number for volume
+        /// </summary>
+        public byte Volume => 57;
+
+        /// <summary>
+        /// Gets the control number for gain
+        /// </summary>
+        public byte Gain => 56;
     }
 }

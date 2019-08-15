@@ -24,6 +24,9 @@ namespace hkampcontrol.ViewModels
         private byte _presence = DefaultBalancedValue;
         private byte _resonance = DefaultBalancedValue;
 
+        private byte _volume = DefaultBalancedValue;
+        private byte _gain = DefaultBalancedValue;
+
         private bool _isBoostOn;
         private bool _isNoiseGateOn;
         private bool _isFxLoopOn;
@@ -170,6 +173,34 @@ namespace hkampcontrol.ViewModels
                     this._resonance = (byte)value;
                     OnPropertyChanged(nameof(Resonance));
                     this._module.SetValueAsync(this._resonance, this.SelectedProfile.Resonance, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public int Volume
+        {
+            get => this._volume;
+            set
+            {
+                if (this._volume != value)
+                {
+                    this._volume = (byte)value;
+                    OnPropertyChanged(nameof(Volume));
+                    this._module.SetValueAsync(this._volume, this.SelectedProfile.Volume, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public int Gain
+        {
+            get => this._gain;
+            set
+            {
+                if (this._gain != value)
+                {
+                    this._gain = (byte)value;
+                    OnPropertyChanged(nameof(Gain));
+                    this._module.SetValueAsync(this._gain, this.SelectedProfile.Gain, this.SelectedDevice, this.SelectedChannel);
                 }
             }
         }

@@ -28,11 +28,6 @@
             <Setter Property="Padding" Value="10" />
             <Setter Property="Margin" Value="10" />
         </Style>
-
-        <Style TargetType="TextBlock"
-               x:Key="BorderHeader">
-            <Setter Property="Margin" Value="10,0,0,0" />
-        </Style>
     </UserControl.Resources>
 
     <StackPanel>
@@ -65,10 +60,8 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <!-- Equalization -->
             <StackPanel Grid.Column="0">
-                <TextBlock Text="Equalization"
-                           Style="{StaticResource BorderHeader}" />
+                <!-- Equalization -->
                 <Border>
                     <StackPanel>
                         <!-- Bass -->
@@ -91,12 +84,20 @@
                                 Click="ResetEqualization" />
                     </StackPanel>
                 </Border>
+                <Border>
+                    <StackPanel>
+                        <!-- Volume -->
+                        <Slider Header="Volume"
+                                Value="{Binding Path=Volume, Mode=TwoWay}" />
+                        <!-- Gain -->
+                        <Slider Header="Gain"
+                                Value="{Binding Path=Gain, Mode=TwoWay}" />
+                    </StackPanel>
+                </Border>
             </StackPanel>
             
             <!-- Effects -->
             <StackPanel Grid.Column="1">
-                <TextBlock Text="Effects"
-                           Style="{StaticResource BorderHeader}" />
                 <Border>
                     <StackPanel>
                         <!-- Reverb Toggle -->
