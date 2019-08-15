@@ -124,9 +124,11 @@
     <Compile Include="Controls\AmpControl.xaml.cs">
       <DependentUpon>AmpControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ModulationTypeBooleanConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModulationType.cs" />
     <Compile Include="Modules\IMidiModule.cs" />
     <Compile Include="Modules\MidiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

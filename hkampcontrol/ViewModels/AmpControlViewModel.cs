@@ -1,6 +1,8 @@
 ﻿using FluentMidi;
 using hkampcontrol.AmpProfiles;
+using hkampcontrol.Models;
 using hkampcontrol.Modules;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,6 +27,11 @@ namespace hkampcontrol.ViewModels
         private byte _delayLevel;
         private byte _delayFeedback;
         private byte _delayTime;
+
+        private bool _isModOn;
+        private ModulationType _modType;
+        private byte _modIntensity;
+        private byte _modSpeed;
 
         public AmpControlViewModel()
             : base()
@@ -219,6 +226,66 @@ namespace hkampcontrol.ViewModels
             }
         }
 
+        public bool IsModulationOn
+        {
+            get => this._isModOn;
+            set
+            {
+                if (this._isModOn != value)
+                {
+                    this._isModOn = value;
+                    OnPropertyChanged(nameof(IsModulationOn));
+                    this._module.SetToggleAsync(this.IsModulationOn, this.SelectedProfile.ModToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public ModulationType ModulationType
+        {
+            get => this._modType;
+            set
+            {
+                if (this._modType != value)
+                {
+                    this._modType = value;
+                    OnPropertyChanged(nameof(ModulationType));
+                    this._module.SetValueAsync(this.GetModulationTypeValue(), this.SelectedProfile.ModType, this.SelectedDevice, this.SelectedChannel);
+                    // Modulation type can effect the speed so we should we resend speed
+                    this.SendModulationSpeed();
+                    this.IsModulationOn = true;
+                }
+            }
+        }
+
+        public int ModulationIntensity
+        {
+            get => this._modIntensity;
+            set
+            {
+                if (this._modIntensity != value)
+                {
+                    this._modIntensity = (byte)value;
+                    OnPropertyChanged(nameof(ModulationIntensity));
+                    this._module.SetValueAsync(this._modIntensity, this.SelectedProfile.ModIntensity , this.SelectedDevice, this.SelectedChannel);
+                    this.IsModulationOn = true;
+                }
+            }
+        }
+        public int ModulationSpeed
+        {
+            get => this._modSpeed;
+            set
+            {
+                if (this._modSpeed != value)
+                {
+                    this._modSpeed = (byte)value;
+                    OnPropertyChanged(nameof(ModulationSpeed));
+                    this.SendModulationSpeed();
+                    this.IsModulationOn = true;
+                }
+            }
+        }
+
         public void SetDevices(IEnumerable<IMidiOutputDevice> devices)
         {
             foreach (IMidiOutputDevice device in devices)
@@ -228,5 +295,25 @@ namespace hkampcontrol.ViewModels
 
             this.SelectedDevice = this.Devices.First();
         }
+
+        private byte GetModulationTypeValue()
+        {
+            switch (this._modType)
+            {
+                case ModulationType.Chorus:
+                    return this.SelectedProfile.ModTypeChorus;
+                case ModulationType.Flanger:
+                    return this.SelectedProfile.ModTypeFlanger;
+                case ModulationType.Phaser:
+                    return this.SelectedProfile.ModTypePhaser;
+                case ModulationType.Tremelo:
+                    return this.SelectedProfile.ModTypeTremelo;
+                default:
+                    throw new NotImplementedException($"Unknown {nameof(ModulationType)} detected");
+            }
+        }
+
+        private void SendModulationSpeed()
+            => this._module.SetValueAsync(this._modIntensity, this.SelectedProfile.ModSpeed, this.SelectedDevice, this.SelectedChannel);
     }
 }

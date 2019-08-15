@@ -75,11 +75,11 @@
         /// Gets the control number for the modulation type
         /// </summary>
         public byte ModType => 12;
-        
+
         /// <summary>
-        /// Gets the value to send to set the modulation type to to turn modulation off
+        /// Gets the value to send to set the modulation type to to turn modulation on/off
         /// </summary>
-        public byte ModTypeOff => 1;
+        public byte ModToggle => 52;
 
         /// <summary>
         /// Gets the value to send to set the modulation type to chorus

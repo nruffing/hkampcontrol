@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:hkampcontrol.Controls"
     xmlns:viewmodels="using:hkampcontrol.ViewModels"
+    xmlns:converters="using:hkampcontrol.Converters"
+    xmlns:models="using:hkampcontrol.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -12,6 +14,8 @@
     d:DesignWidth="400">
 
     <UserControl.Resources>
+        <converters:ModulationTypeBooleanConverter x:Key="modulationTypeConverter" />
+
         <Style TargetType="Slider">
             <Setter Property="Minimum" Value="0" />
             <Setter Property="Maximum" Value="127" />
@@ -60,6 +64,7 @@
                                       IsOn="{Binding Path=IsReverbOn, Mode=TwoWay}" />
                         <!-- Reverb Level -->
                         <Slider Value="{Binding Path=ReverbLevel, Mode=TwoWay}" />
+                        
                         <!-- Delay Toggle -->
                         <ToggleSwitch Header="Delay"
                                       IsOn="{Binding Path=IsDelayOn, Mode=TwoWay}" />
@@ -72,6 +77,24 @@
                         <!-- Delay Time -->
                         <Slider Header="Time"
                                 Value="{Binding Path=DelayTime, Mode=TwoWay}" />
+                        
+                        <!-- Modulation Type -->
+                        <ToggleSwitch Header="Modulation"
+                                      IsOn="{Binding Path=IsModulationOn, Mode=TwoWay}" />
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton IsChecked="{Binding Path=ModulationType, Converter={StaticResource modulationTypeConverter}, ConverterParameter=Chorus, Mode=TwoWay}">Chorus</RadioButton>
+                            <RadioButton IsChecked="{Binding Path=ModulationType, Converter={StaticResource modulationTypeConverter}, ConverterParameter=Flanger, Mode=TwoWay}">Flanger</RadioButton>                            
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton IsChecked="{Binding Path=ModulationType, Converter={StaticResource modulationTypeConverter}, ConverterParameter=Phaser, Mode=TwoWay}">Phaser</RadioButton>
+                            <RadioButton IsChecked="{Binding Path=ModulationType, Converter={StaticResource modulationTypeConverter}, ConverterParameter=Tremelo, Mode=TwoWay}">Tremelo</RadioButton>
+                        </StackPanel>
+                        <!-- Modulation Intensity -->
+                        <Slider Header="Intensity"
+                                Value="{Binding Path=ModulationIntensity, Mode=TwoWay}" />
+                        <!-- Modulation Speed -->
+                        <Slider Header="Speed"
+                                Value="{Binding Path=ModulationSpeed, Mode=TwoWay}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

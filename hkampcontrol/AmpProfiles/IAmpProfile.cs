@@ -72,9 +72,9 @@
         byte ModType { get; }
 
         /// <summary>
-        /// Gets the value to send to set the modulation type to to turn modulation off
+        /// Gets the value to send to set the modulation type to to turn modulation on/off
         /// </summary>
-        byte ModTypeOff { get; }
+        byte ModToggle { get; }
 
         /// <summary>
         /// Gets the value to send to set the modulation type to chorus

@@ -1,6 +1,8 @@
 ﻿using Windows.UI.Xaml.Controls;
 using System.Linq;
 using hkampcontrol.Views;
+using Windows.UI.ViewManagement;
+using Windows.Foundation;
 
 namespace hkampcontrol
 {
@@ -9,6 +11,9 @@ namespace hkampcontrol
         public MainPage()
         {
             this.InitializeComponent();
+
+            ApplicationView.PreferredLaunchViewSize = new Size(1200, 700);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         private void NavigationView_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
