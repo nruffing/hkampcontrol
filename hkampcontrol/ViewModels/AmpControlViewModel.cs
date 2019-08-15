@@ -11,10 +11,18 @@ namespace hkampcontrol.ViewModels
 {
     public sealed class AmpControlViewModel : ViewModelBase
     {
+        private const byte DefaultBalancedValue = 64;
+
         private IMidiModule _module;
         private IAmpProfile _selectedProfile;
         private IMidiOutputDevice _selectedDevice;
         private byte _selectedChannel;
+
+        private byte _bass = DefaultBalancedValue;
+        private byte _mid = DefaultBalancedValue;
+        private byte _treble = DefaultBalancedValue;
+        private byte _presence = DefaultBalancedValue;
+        private byte _resonance = DefaultBalancedValue;
 
         private bool _isBoostOn;
         private bool _isNoiseGateOn;
@@ -31,7 +39,7 @@ namespace hkampcontrol.ViewModels
         private bool _isModOn;
         private ModulationType _modType;
         private byte _modIntensity;
-        private byte _modSpeed;
+        private byte _modSpeed;        
 
         public AmpControlViewModel()
             : base()
@@ -92,6 +100,76 @@ namespace hkampcontrol.ViewModels
                 {
                     this._selectedChannel = value;
                     OnPropertyChanged(nameof(SelectedChannel));
+                }
+            }
+        }
+
+        public int Bass
+        {
+            get => this._bass;
+            set
+            {
+                if (this._bass != value)
+                {
+                    this._bass = (byte)value;
+                    OnPropertyChanged(nameof(Bass));
+                    this._module.SetValueAsync(this._bass, this.SelectedProfile.Bass, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public int Mid
+        {
+            get => this._mid;
+            set
+            {
+                if (this._mid != value)
+                {
+                    this._mid = (byte)value;
+                    OnPropertyChanged(nameof(Mid));
+                    this._module.SetValueAsync(this._mid, this.SelectedProfile.Mid, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public int Treble
+        {
+            get => this._treble;
+            set
+            {
+                if (this._treble != value)
+                {
+                    this._treble = (byte)value;
+                    OnPropertyChanged(nameof(Treble));
+                    this._module.SetValueAsync(this._treble, this.SelectedProfile.Treble, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public int Presence
+        {
+            get => this._presence;
+            set
+            {
+                if (this._presence != value)
+                {
+                    this._presence = (byte)value;
+                    OnPropertyChanged(nameof(Presence));
+                    this._module.SetValueAsync(this._presence, this.SelectedProfile.Presence, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public int Resonance
+        {
+            get => this._resonance;
+            set
+            {
+                if (this._resonance != value)
+                {
+                    this._resonance = (byte)value;
+                    OnPropertyChanged(nameof(Resonance));
+                    this._module.SetValueAsync(this._resonance, this.SelectedProfile.Resonance, this.SelectedDevice, this.SelectedChannel);
                 }
             }
         }
@@ -294,6 +372,15 @@ namespace hkampcontrol.ViewModels
             }
 
             this.SelectedDevice = this.Devices.First();
+        }
+
+        public void ResetEqualization()
+        {
+            this.Bass = DefaultBalancedValue;
+            this.Mid = DefaultBalancedValue;
+            this.Treble = DefaultBalancedValue;
+            this.Presence = DefaultBalancedValue;
+            this.Resonance = DefaultBalancedValue;
         }
 
         private byte GetModulationTypeValue()

@@ -110,5 +110,30 @@
         /// Gets the value to send to set the modulation speed
         /// </summary>
         public byte ModSpeed => 26;
+
+        /// <summary>
+        /// Gets the control number for bass
+        /// </summary>
+        public byte Bass => 21;
+
+        /// <summary>
+        /// Gets the control number for mid
+        /// </summary>
+        public byte Mid => 22;
+
+        /// <summary>
+        /// Gets the control number for treble
+        /// </summary>
+        public byte Treble => 23;
+
+        /// <summary>
+        /// Gets the control number for presence
+        /// </summary>
+        public byte Presence => 25;
+
+        /// <summary>
+        /// Gets the control number for resonance
+        /// </summary>
+        public byte Resonance => 24;
     }
 }

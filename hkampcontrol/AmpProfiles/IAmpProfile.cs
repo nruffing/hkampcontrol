@@ -105,5 +105,30 @@
         /// Gets the value to send to set the modulation speed
         /// </summary>
         byte ModSpeed { get; }        
+
+        /// <summary>
+        /// Gets the control number for bass
+        /// </summary>
+        byte Bass { get; }
+
+        /// <summary>
+        /// Gets the control number for mid
+        /// </summary>
+        byte Mid { get; }
+
+        /// <summary>
+        /// Gets the control number for treble
+        /// </summary>
+        byte Treble { get; }
+
+        /// <summary>
+        /// Gets the control number for presence
+        /// </summary>
+        byte Presence { get; }
+
+        /// <summary>
+        /// Gets the control number for resonance
+        /// </summary>
+        byte Resonance { get; }
     }
 }

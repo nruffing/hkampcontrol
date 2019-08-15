@@ -21,9 +21,21 @@
             <Setter Property="Maximum" Value="127" />
             <Setter Property="Margin" Value="10,0,10,0" />
         </Style>
+
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemListMediumColor}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+
+        <Style TargetType="TextBlock"
+               x:Key="BorderHeader">
+            <Setter Property="Margin" Value="10,0,0,0" />
+        </Style>
     </UserControl.Resources>
 
-    <StackPanel Margin="10">
+    <StackPanel>
         <StackPanel Padding="10"
                     Orientation="Horizontal">
             <!-- Amp Profile Selection -->
@@ -50,14 +62,42 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <!-- Effects -->
+            <!-- Equalization -->
             <StackPanel Grid.Column="0">
-                <TextBlock Text="Effects" />
-                <Border BorderBrush="{ThemeResource SystemListMediumColor}"
-                        BorderThickness="2"
-                        Padding="10">
+                <TextBlock Text="Equalization"
+                           Style="{StaticResource BorderHeader}" />
+                <Border>
+                    <StackPanel>
+                        <!-- Bass -->
+                        <Slider Header="Bass"
+                                Value="{Binding Path=Bass, Mode=TwoWay}" />
+                        <!-- Mid -->
+                        <Slider Header="Mid"
+                                Value="{Binding Path=Mid, Mode=TwoWay}" />
+                        <!-- Treble -->
+                        <Slider Header="Treble"
+                                Value="{Binding Path=Treble, Mode=TwoWay}" />
+                        <!-- Presence -->
+                        <Slider Header="Presence"
+                                Value="{Binding Path=Presence, Mode=TwoWay}" />
+                        <!-- Resonance -->
+                        <Slider Header="Resonance"
+                                Value="{Binding Path=Resonance, Mode=TwoWay}" />
+                        <!-- Reset -->
+                        <Button Content="Reset"
+                                Click="ResetEqualization" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            
+            <!-- Effects -->
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Effects"
+                           Style="{StaticResource BorderHeader}" />
+                <Border>
                     <StackPanel>
                         <!-- Reverb Toggle -->
                         <ToggleSwitch Header="Reverb"
@@ -98,7 +138,7 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
-            <StackPanel Grid.Column="1"
+            <StackPanel Grid.Column="2"
                         Padding="10">
                 <!-- Boost Toggle -->
                 <ToggleSwitch Header="Boost"

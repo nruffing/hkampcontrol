@@ -12,10 +12,15 @@ namespace hkampcontrol.Controls
             this.Loaded += AmpControl_Loaded;
         }
 
+        public AmpControlViewModel ViewModel => (AmpControlViewModel)DataContext;
+
         private async void AmpControl_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var devices = await MidiDeviceLocator.GetAllOutputDevicesAsync();
-            ((AmpControlViewModel)DataContext).SetDevices(devices);
+            this.ViewModel.SetDevices(devices);
         }
+
+        private void ResetEqualization(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+            => this.ViewModel.ResetEqualization();
     }
 }
