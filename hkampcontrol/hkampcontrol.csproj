@@ -124,10 +124,13 @@
     <Compile Include="Controls\AmpControl.xaml.cs">
       <DependentUpon>AmpControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\ModulationTypeBooleanConverter.cs" />
+    <Compile Include="Converters\ChannelConverter.cs" />
+    <Compile Include="Converters\EnumBooleanConverter.cs" />
+    <Compile Include="Converters\ModulationTypeConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\ModulationType.cs" />
     <Compile Include="Modules\IMidiModule.cs" />
     <Compile Include="Modules\MidiModule.cs" />

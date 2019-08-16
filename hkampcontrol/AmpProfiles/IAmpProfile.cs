@@ -140,5 +140,30 @@
         /// Gets the control number for gain
         /// </summary>
         byte Gain { get; }
+
+        /// <summary>
+        /// Gets the control number for changing the channel
+        /// </summary>
+        byte Channel { get; }
+
+        /// <summary>
+        /// Gets the value to send for the channel for clean
+        /// </summary>
+        byte CleanChannelValue { get; }
+
+        /// <summary>
+        /// Gets the value to send for the channel for crunch
+        /// </summary>
+        byte CrunchChannelValue { get; }
+
+        /// <summary>
+        /// Gets the value to send for the channel for lead
+        /// </summary>
+        byte LeadChannelValue { get; }
+
+        /// <summary>
+        /// Gets the value to send for the channel for ultra
+        /// </summary>
+        byte UltraChannelValue { get; }
     }
 }

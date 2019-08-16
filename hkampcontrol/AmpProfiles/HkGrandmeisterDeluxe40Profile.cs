@@ -145,5 +145,30 @@
         /// Gets the control number for gain
         /// </summary>
         public byte Gain => 56;
+
+        /// <summary>
+        /// Gets the control number for changing the channel
+        /// </summary>
+        public byte Channel => 31;
+
+        /// <summary>
+        /// Gets the value to send for the channel for clean
+        /// </summary>
+        public byte CleanChannelValue => 0;
+
+        /// <summary>
+        /// Gets the value to send for the channel for crunch
+        /// </summary>
+        public byte CrunchChannelValue => 33;
+
+        /// <summary>
+        /// Gets the value to send for the channel for lead
+        /// </summary>
+        public byte LeadChannelValue => 65;
+
+        /// <summary>
+        /// Gets the value to send for the channel for ultra
+        /// </summary>
+        public byte UltraChannelValue => 96;
     }
 }

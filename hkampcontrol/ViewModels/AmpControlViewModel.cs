@@ -27,6 +27,8 @@ namespace hkampcontrol.ViewModels
         private byte _volume = DefaultBalancedValue;
         private byte _gain = DefaultBalancedValue;
 
+        private Channel _channel;
+
         private bool _isBoostOn;
         private bool _isNoiseGateOn;
         private bool _isFxLoopOn;
@@ -201,6 +203,20 @@ namespace hkampcontrol.ViewModels
                     this._gain = (byte)value;
                     OnPropertyChanged(nameof(Gain));
                     this._module.SetValueAsync(this._gain, this.SelectedProfile.Gain, this.SelectedDevice, this.SelectedChannel);
+                }
+            }
+        }
+
+        public Channel Channel
+        {
+            get => this._channel;
+            set
+            {
+                if (this._channel != value)
+                {
+                    this._channel = value;
+                    OnPropertyChanged(nameof(Channel));
+                    this._module.SetValueAsync(this.GetChannelValue(), this.SelectedProfile.Channel, this.SelectedDevice, this.SelectedChannel);
                 }
             }
         }
@@ -428,6 +444,23 @@ namespace hkampcontrol.ViewModels
                     return this.SelectedProfile.ModTypeTremelo;
                 default:
                     throw new NotImplementedException($"Unknown {nameof(ModulationType)} detected");
+            }
+        }
+
+        private byte GetChannelValue()
+        {
+            switch (this._channel)
+            {
+                case Channel.Clean:
+                    return this.SelectedProfile.CleanChannelValue;
+                case Channel.Crunch:
+                    return this.SelectedProfile.CrunchChannelValue;
+                case Channel.Lead:
+                    return this.SelectedProfile.LeadChannelValue;
+                case Channel.Ultra:
+                    return this.SelectedProfile.UltraChannelValue;
+                default:
+                    throw new NotImplementedException($"Unknown {nameof(Channel)} detected");
             }
         }
 
