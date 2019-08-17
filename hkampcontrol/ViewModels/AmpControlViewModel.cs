@@ -28,6 +28,7 @@ namespace hkampcontrol.ViewModels
         private byte _gain = DefaultBalancedValue;
 
         private Channel _channel;
+        private PowerSoak _powerSoak;
 
         private bool _isBoostOn;
         private bool _isNoiseGateOn;
@@ -118,7 +119,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._bass = (byte)value;
                     OnPropertyChanged(nameof(Bass));
-                    this._module.SetValueAsync(this._bass, this.SelectedProfile.Bass, this.SelectedDevice, this.SelectedChannel);
+                    SendBass();
                 }
             }
         }
@@ -132,7 +133,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._mid = (byte)value;
                     OnPropertyChanged(nameof(Mid));
-                    this._module.SetValueAsync(this._mid, this.SelectedProfile.Mid, this.SelectedDevice, this.SelectedChannel);
+                    SendMid();
                 }
             }
         }
@@ -146,7 +147,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._treble = (byte)value;
                     OnPropertyChanged(nameof(Treble));
-                    this._module.SetValueAsync(this._treble, this.SelectedProfile.Treble, this.SelectedDevice, this.SelectedChannel);
+                    SendTreble();
                 }
             }
         }
@@ -160,7 +161,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._presence = (byte)value;
                     OnPropertyChanged(nameof(Presence));
-                    this._module.SetValueAsync(this._presence, this.SelectedProfile.Presence, this.SelectedDevice, this.SelectedChannel);
+                    SendPresence();
                 }
             }
         }
@@ -174,7 +175,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._resonance = (byte)value;
                     OnPropertyChanged(nameof(Resonance));
-                    this._module.SetValueAsync(this._resonance, this.SelectedProfile.Resonance, this.SelectedDevice, this.SelectedChannel);
+                    SendResonance();
                 }
             }
         }
@@ -188,7 +189,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._volume = (byte)value;
                     OnPropertyChanged(nameof(Volume));
-                    this._module.SetValueAsync(this._volume, this.SelectedProfile.Volume, this.SelectedDevice, this.SelectedChannel);
+                    SendVolume();
                 }
             }
         }
@@ -202,7 +203,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._gain = (byte)value;
                     OnPropertyChanged(nameof(Gain));
-                    this._module.SetValueAsync(this._gain, this.SelectedProfile.Gain, this.SelectedDevice, this.SelectedChannel);
+                    SendGain();
                 }
             }
         }
@@ -216,7 +217,21 @@ namespace hkampcontrol.ViewModels
                 {
                     this._channel = value;
                     OnPropertyChanged(nameof(Channel));
-                    this._module.SetValueAsync(this.GetChannelValue(), this.SelectedProfile.Channel, this.SelectedDevice, this.SelectedChannel);
+                    SendChannel();
+                }
+            }
+        }
+
+        public PowerSoak PowerSoak
+        {
+            get => this._powerSoak;
+            set
+            {
+                if (this._powerSoak != value)
+                {
+                    this._powerSoak = value;
+                    OnPropertyChanged(nameof(PowerSoak));
+                    SendPowerSoak();
                 }
             }
         }
@@ -230,7 +245,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._isBoostOn = value;
                     OnPropertyChanged(nameof(IsBoostOn));
-                    this._module.SetToggleAsync(this.IsBoostOn, this.SelectedProfile.Boost, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    SendBoost();
                 }
             }
         }
@@ -244,7 +259,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._isNoiseGateOn = value;
                     OnPropertyChanged(nameof(IsNoiseGateOn));
-                    this._module.SetToggleAsync(this.IsNoiseGateOn, this.SelectedProfile.NoiseGate, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    SendNoiseGate();
                 }
             }
         }
@@ -258,7 +273,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._isFxLoopOn = value;
                     OnPropertyChanged(nameof(IsFxLoopOn));
-                    this._module.SetToggleAsync(this.IsFxLoopOn, this.SelectedProfile.FxLoop, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    SendFxLoop();
                 }
             }
         }
@@ -272,7 +287,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._isReverbOn = value;
                     OnPropertyChanged(nameof(IsReverbOn));
-                    this._module.SetToggleAsync(this.IsReverbOn, this.SelectedProfile.ReverbToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    SendReverb();
                 }
             }
         }
@@ -286,7 +301,7 @@ namespace hkampcontrol.ViewModels
                 {                    
                     this._reverbLevel = (byte)value;
                     OnPropertyChanged(nameof(ReverbLevel));
-                    this._module.SetValueAsync(this._reverbLevel, this.SelectedProfile.Reverb, this.SelectedDevice, this.SelectedChannel);
+                    SendReverbLevel();
                     this.IsReverbOn = true;
                 }
             }
@@ -301,7 +316,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._isDelayOn = value;
                     OnPropertyChanged(nameof(IsDelayOn));
-                    this._module.SetToggleAsync(this.IsDelayOn, this.SelectedProfile.DelayToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    SendDelay();
                 }
             }
         }
@@ -315,7 +330,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._delayLevel = (byte)value;
                     OnPropertyChanged(nameof(DelayLevel));
-                    this._module.SetValueAsync(this._delayLevel, this.SelectedProfile.Delay, this.SelectedDevice, this.SelectedChannel);
+                    SendDelayLevel();
                     this.IsDelayOn = true;
                 }
             }
@@ -330,7 +345,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._delayFeedback = (byte)value;
                     OnPropertyChanged(nameof(DelayFeedback));
-                    this._module.SetValueAsync(this._delayFeedback, this.SelectedProfile.DelayFeedback, this.SelectedDevice, this.SelectedChannel);
+                    SendFeedback();
                     this.IsDelayOn = true;
                 }
             }
@@ -345,7 +360,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._delayTime = (byte)value;
                     OnPropertyChanged(nameof(DelayTime));
-                    this._module.SetValueAsync(this._delayTime, this.SelectedProfile.DelayTime, this.SelectedDevice, this.SelectedChannel);
+                    SendTime();
                     this.IsDelayOn = true;
                 }
             }
@@ -360,7 +375,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._isModOn = value;
                     OnPropertyChanged(nameof(IsModulationOn));
-                    this._module.SetToggleAsync(this.IsModulationOn, this.SelectedProfile.ModToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+                    SendModSpeed();
                 }
             }
         }
@@ -374,9 +389,9 @@ namespace hkampcontrol.ViewModels
                 {
                     this._modType = value;
                     OnPropertyChanged(nameof(ModulationType));
-                    this._module.SetValueAsync(this.GetModulationTypeValue(), this.SelectedProfile.ModType, this.SelectedDevice, this.SelectedChannel);
+                    SendModType();
                     // Modulation type can effect the speed so we should we resend speed
-                    this.SendModulationSpeed();
+                    this.SendModSpeed();
                     this.IsModulationOn = true;
                 }
             }
@@ -391,7 +406,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._modIntensity = (byte)value;
                     OnPropertyChanged(nameof(ModulationIntensity));
-                    this._module.SetValueAsync(this._modIntensity, this.SelectedProfile.ModIntensity , this.SelectedDevice, this.SelectedChannel);
+                    SendModIntensity();
                     this.IsModulationOn = true;
                 }
             }
@@ -405,7 +420,7 @@ namespace hkampcontrol.ViewModels
                 {
                     this._modSpeed = (byte)value;
                     OnPropertyChanged(nameof(ModulationSpeed));
-                    this.SendModulationSpeed();
+                    this.SendModSpeed();
                     this.IsModulationOn = true;
                 }
             }
@@ -428,6 +443,31 @@ namespace hkampcontrol.ViewModels
             this.Treble = DefaultBalancedValue;
             this.Presence = DefaultBalancedValue;
             this.Resonance = DefaultBalancedValue;
+        }
+
+        public void SyncAll()
+        {
+            SendBass();
+            SendMid();
+            SendTreble();
+            SendPresence();
+            SendResonance();
+            SendGain();
+            SendChannel();
+            SendPowerSoak();
+            SendBoost();
+            SendNoiseGate();
+            SendFxLoop();
+            SendReverb();
+            SendReverbLevel();
+            SendDelay();
+            SendDelayLevel();
+            SendFeedback();
+            SendTime();
+            SendModulation();
+            SendModType();
+            SendModIntensity();
+            SendModSpeed();
         }
 
         private byte GetModulationTypeValue()
@@ -464,7 +504,89 @@ namespace hkampcontrol.ViewModels
             }
         }
 
-        private void SendModulationSpeed()
+        private byte GetPowerSoakValue()
+        {
+            switch (this._powerSoak)
+            {
+                case PowerSoak.SpeakerOff:
+                    return this.SelectedProfile.SpeakerOffValue;
+                case PowerSoak.OneWatt:
+                    return this.SelectedProfile.OneWattValue;
+                case PowerSoak.FiveWatt:
+                    return this.SelectedProfile.FiveWattValue;
+                case PowerSoak.TwentyWatt:
+                    return this.SelectedProfile.TwentyWattValue;
+                case PowerSoak.Off:
+                    return this.SelectedProfile.PowerSoakOff;
+                default:
+                    throw new NotImplementedException($"Unknown {nameof(PowerSoak)} detected");
+            }
+        }
+
+        private void SendBass()
+            => this._module.SetValueAsync(this._bass, this.SelectedProfile.Bass, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendMid()
+            => this._module.SetValueAsync(this._mid, this.SelectedProfile.Mid, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendTreble()
+            => this._module.SetValueAsync(this._treble, this.SelectedProfile.Treble, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendPresence()
+            => this._module.SetValueAsync(this._presence, this.SelectedProfile.Presence, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendResonance()
+            => this._module.SetValueAsync(this._resonance, this.SelectedProfile.Resonance, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendVolume()
+            => this._module.SetValueAsync(this._volume, this.SelectedProfile.Volume, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendGain()
+            => this._module.SetValueAsync(this._gain, this.SelectedProfile.Gain, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendChannel()
+            => this._module.SetValueAsync(this.GetChannelValue(), this.SelectedProfile.Channel, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendPowerSoak()
+            => this._module.SetValueAsync(this.GetPowerSoakValue(), this.SelectedProfile.PowerSoak, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendBoost()
+            => this._module.SetToggleAsync(this._isBoostOn, this.SelectedProfile.Boost, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendNoiseGate()
+            => this._module.SetToggleAsync(this._isNoiseGateOn, this.SelectedProfile.NoiseGate, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendFxLoop()
+            => this._module.SetToggleAsync(this._isFxLoopOn, this.SelectedProfile.FxLoop, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendReverb()
+            => this._module.SetToggleAsync(this._isReverbOn, this.SelectedProfile.ReverbToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendReverbLevel()
+            => this._module.SetValueAsync(this._reverbLevel, this.SelectedProfile.Reverb, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendDelay()
+            => this._module.SetToggleAsync(this._isDelayOn, this.SelectedProfile.DelayToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendDelayLevel()
+            => this._module.SetValueAsync(this._delayLevel, this.SelectedProfile.Delay, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendFeedback()
+            => this._module.SetValueAsync(this._delayFeedback, this.SelectedProfile.DelayFeedback, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendTime()
+            => this._module.SetValueAsync(this._delayTime, this.SelectedProfile.DelayTime, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendModulation()
+            => this._module.SetToggleAsync(this._isModOn, this.SelectedProfile.ModToggle, this.SelectedProfile, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendModType() 
+            => this._module.SetValueAsync(this.GetModulationTypeValue(), this.SelectedProfile.ModType, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendModIntensity()
+            => this._module.SetValueAsync(this._modIntensity, this.SelectedProfile.ModIntensity, this.SelectedDevice, this.SelectedChannel);
+
+        private void SendModSpeed()
             => this._module.SetValueAsync(this._modIntensity, this.SelectedProfile.ModSpeed, this.SelectedDevice, this.SelectedChannel);
     }
 }

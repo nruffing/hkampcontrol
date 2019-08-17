@@ -16,6 +16,7 @@
     <UserControl.Resources>
         <converters:ModulationTypeConverter x:Key="modulationTypeConverter" />
         <converters:ChannelConverter x:Key="channelConverter" />
+        <converters:PowerSoakConverter x:Key="powerSoakConverter" />
 
         <Style TargetType="Slider">
             <Setter Property="Minimum" Value="0" />
@@ -95,6 +96,7 @@
                                 Value="{Binding Path=Gain, Mode=TwoWay}" />
                     </StackPanel>
                 </Border>
+                <Button Click="Sync_Click">Sync</Button>
             </StackPanel>
             
             <!-- Effects -->
@@ -156,15 +158,28 @@
                 </Border>
                 <Border>
                     <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton GroupName="PowerSoakGroup" IsChecked="{Binding Path=PowerSoak, Converter={StaticResource powerSoakConverter}, ConverterParameter=SpeakerOff, Mode=TwoWay}">Speaker Off</RadioButton>
+                            <RadioButton GroupName="PowerSoakGroup" IsChecked="{Binding Path=PowerSoak, Converter={StaticResource powerSoakConverter}, ConverterParameter=OneWatt, Mode=TwoWay}">1W</RadioButton>
+                            <RadioButton GroupName="PowerSoakGroup" IsChecked="{Binding Path=PowerSoak, Converter={StaticResource powerSoakConverter}, ConverterParameter=FiveWatt, Mode=TwoWay}">5W</RadioButton> 
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton GroupName="PowerSoakGroup" IsChecked="{Binding Path=PowerSoak, Converter={StaticResource powerSoakConverter}, ConverterParameter=TwentyWatt, Mode=TwoWay}">20W</RadioButton>
+                            <RadioButton GroupName="PowerSoakGroup" IsChecked="{Binding Path=PowerSoak, Converter={StaticResource powerSoakConverter}, ConverterParameter=Off, Mode=TwoWay}">Off (40W)</RadioButton>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Border>
+                    <StackPanel>
                         <!-- Boost Toggle -->
                         <ToggleSwitch Header="Boost"
-                      IsOn="{Binding Path=IsBoostOn, Mode=TwoWay}" />
+                            IsOn="{Binding Path=IsBoostOn, Mode=TwoWay}" />
                         <!-- Noise Gate Toggle -->
                         <ToggleSwitch Header="Noise Gate"
-                      IsOn="{Binding Path=IsNoiseGateOn, Mode=TwoWay}" />
+                            IsOn="{Binding Path=IsNoiseGateOn, Mode=TwoWay}" />
                         <!-- FX Loop Toggle -->
                         <ToggleSwitch Header="FX Loop"
-                      IsOn="{Binding Path=IsFxLoopOn, Mode=TwoWay}" />
+                            IsOn="{Binding Path=IsFxLoopOn, Mode=TwoWay}" />
                     </StackPanel>
                 </Border>                
             </StackPanel>

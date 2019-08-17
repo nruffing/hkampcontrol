@@ -22,5 +22,8 @@ namespace hkampcontrol.Controls
 
         private void ResetEqualization(object sender, Windows.UI.Xaml.RoutedEventArgs e)
             => this.ViewModel.ResetEqualization();
+
+        private void Sync_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+            => this.ViewModel.SyncAll();
     }
 }

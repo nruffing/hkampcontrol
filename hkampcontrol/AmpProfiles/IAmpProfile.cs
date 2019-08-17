@@ -165,5 +165,35 @@
         /// Gets the value to send for the channel for ultra
         /// </summary>
         byte UltraChannelValue { get; }
+
+        /// <summary>
+        /// Gets the control number for changing the power soak setting
+        /// </summary>
+        byte PowerSoak { get; }
+
+        /// <summary>
+        /// Gets the value to send for the power soak for turning the speaker output off
+        /// </summary>
+        byte SpeakerOffValue { get; }
+
+        /// <summary>
+        /// Gets the value to send for the power soak for setting it to 1W
+        /// </summary>
+        byte OneWattValue { get; }
+
+        /// <summary>
+        /// Gets the value to send for the power soak for setting it to 5W
+        /// </summary>
+        byte FiveWattValue { get; }
+
+        /// <summary>
+        /// Gets the value to send for the power soak for setting it to 20W
+        /// </summary>
+        byte TwentyWattValue { get; }
+
+        /// <summary>
+        /// Gets the value to send for the power soak for turning it off (40W)
+        /// </summary>
+        byte PowerSoakOff { get; }
     }
 }
