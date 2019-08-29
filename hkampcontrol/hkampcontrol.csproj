@@ -184,6 +184,12 @@
       <Version>1.0.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\hkampcontrol.data\hkampcontrol.data.csproj">
+      <Project>{da2c0cfc-65bb-4746-abc9-428bba4988cb}</Project>
+      <Name>hkampcontrol.data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
