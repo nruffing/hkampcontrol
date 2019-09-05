@@ -1,6 +1,8 @@
 ﻿using FluentSql.Models;
 using System.Collections.Generic;
 using System.Text;
+using FluentSql.Extensions;
+using System;
 
 namespace FluentSql.Commands
 {
@@ -14,7 +16,7 @@ namespace FluentSql.Commands
         private bool _ifNotExists;
         private IList<IColumn<ICreateTable>> _columns = new List<IColumn<ICreateTable>>();
 
-        public CreateTable(string name)
+        internal CreateTable(string name)
             => this._name = name;
 
         public ICreateTable IfNotExists()
@@ -32,10 +34,12 @@ namespace FluentSql.Commands
 
         public string End()
         {
+            this.Validate();
+
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < this._columns.Count; i++)
             {
-                sb.Append(_columns[i].GetCommandFragment());
+                sb.Append(this._columns[i].GetCommandFragment());
                 if (i < this._columns.Count - 1)
                 {
                     sb.Append(ColumnSeparator);
@@ -47,6 +51,19 @@ namespace FluentSql.Commands
                 this._ifNotExists ? IfNotExistsFragment : string.Empty,
                 this._name,
                 sb.ToString());
+        }
+
+        private void Validate()
+        {
+            if (_columns.IsEmpty())
+            {
+                throw new InvalidOperationException("At least one column is required to create a table.");
+            }
+
+            foreach (IColumn<ICreateTable> column in this._columns)
+            {
+                column.Validate();
+            }
         }
     }
 }

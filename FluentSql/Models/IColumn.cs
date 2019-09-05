@@ -9,5 +9,7 @@
         TCommand EndColumn();
 
         string GetCommandFragment();
+
+        void Validate();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace FluentSql.Models
+﻿using System;
+
+namespace FluentSql.Models
 {
     public sealed class Column<TCommand> : IColumn<TCommand>
     {
@@ -42,5 +44,18 @@
                 this._dataType.GetCommandFragment(),
                 this._isPrimaryKey ? PrimaryKeyFragemnt : string.Empty,
                 this._isNullable ? NullableFragment : string.Empty);
+
+        public void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(this._name))
+            {
+                throw new InvalidOperationException("Column name is invalid.");
+            }
+
+            if (this._isPrimaryKey && this._isNullable)
+            {
+                throw new InvalidOperationException("A column cannot be both nullable and a primary key.");
+            }
+        }
     }
 }
